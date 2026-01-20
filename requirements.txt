@@ -2,16 +2,8 @@
 jericho
 python-dotenv
 
-# LLM providers
-huggingface_hub
-openai
-anthropic
-
 # MCP Server
 fastmcp
 
 # Function calling (optional, for the alternative approach)
 langchain-core
-
-# Gradio for the web interface (version controlled by Space sdk_version)
-gradio
