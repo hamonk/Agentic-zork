@@ -3,7 +3,7 @@ jericho
 python-dotenv
 
 # LLM providers
-huggingface_hub
+huggingface_hub>=0.25.0
 openai
 anthropic
 
@@ -12,3 +12,6 @@ fastmcp
 
 # Function calling (optional, for the alternative approach)
 langchain-core
+
+# Gradio for the web interface
+gradio>=5.0.0
