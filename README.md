@@ -44,7 +44,17 @@ This project provides:
 
 ## Quick Start
 
-### 1. Setup
+### 1. Download Game Files
+
+The Z-machine game files are not included in this repository. Clone them from the BYU-PCCL repository:
+
+```bash
+git clone https://github.com/BYU-PCCL/z-machine-games z-machine-games-master
+```
+
+This provides 57 classic text adventure games including the Zork trilogy, Colossal Cave Adventure, Enchanter, and more.
+
+### 2. Setup
 
 ```bash
 # Create virtual environment (using uv recommended)
@@ -61,7 +71,7 @@ cp .env.example .env
 
 Get your HuggingFace token at: https://huggingface.co/settings/tokens
 
-### 2. Run an Agent
+### 3. Run an Agent
 
 ```bash
 # Run the example MCP agent
