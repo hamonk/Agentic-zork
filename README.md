@@ -97,20 +97,71 @@ python run_agent.py --list-games
 +-- run_agent.py              # Agent runner
 +-- app.py                    # Gradio interface
 +-- evaluation/               # Evaluation system
-|   +-- evaluate.py           # Main CLI script
+|   +-- evaluate.py           # Evaluation CLI (local and HF Spaces)
 |   +-- runner.py             # Agent execution
 |   +-- metrics.py            # Result tracking
 +-- example_submission/       # Working example submission
 |   +-- agent.py              # Full ReAct agent implementation
 |   +-- mcp_server.py         # Full MCP server implementation
-+-- submission_template/      # Student templates
++-- submission_template/      # Student templates (HF Space template)
 |   +-- README.md             # Assignment instructions
 |   +-- agent.py              # Agent starter code
 |   +-- mcp_server.py         # MCP server starter code
-|   +-- app.py                # HF Spaces app
+|   +-- app.py                # HF Spaces Gradio app
+|   +-- requirements.txt      # Space dependencies
 +-- games/
 |   +-- zork_env.py           # Jericho wrapper
 +-- z-machine-games-master/   # Game files
+```
+
+## Student Submission Workflow (Hugging Face Spaces)
+
+### For Students
+
+1. **Fork the template Space** on Hugging Face:
+   ```
+   https://huggingface.co/spaces/[COURSE]/text-adventure-template
+   ```
+
+2. **Clone your fork locally**:
+   ```bash
+   git clone https://huggingface.co/spaces/YOUR_USERNAME/text-adventure-agent
+   cd text-adventure-agent
+   ```
+
+3. **Implement your agent** in `agent.py` and `mcp_server.py`
+
+4. **Test locally**:
+   ```bash
+   # Test MCP server interactively
+   fastmcp dev mcp_server.py
+   
+   # Run your agent
+   python run_agent.py --agent . --game zork1 -v -n 20
+   ```
+
+5. **Push to your Space**:
+   ```bash
+   git add -A
+   git commit -m "Implement my agent"
+   git push
+   ```
+
+6. **Submit** your Space URL on the course platform
+
+### For Instructors
+
+Evaluate student submissions from their HF Spaces:
+
+```bash
+# Evaluate a single Space
+python evaluation/evaluate.py --hf-space student1/text-adventure-agent -g zork1 -t 5
+
+# Evaluate a local submission
+python evaluation/evaluate.py -s ./example_submission -g zork1 -t 5
+
+# Batch evaluate multiple local submissions
+python evaluation/evaluate.py --submissions-dir ./all_submissions -g zork1 -o results.json
 ```
 
 ## Assignment

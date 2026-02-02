@@ -1,8 +1,9 @@
-# Core dependencies (provided by course infrastructure)
-# jericho
-# python-dotenv
-# fastmcp
-# huggingface_hub
+# Required for HF Space display
+gradio>=4.0.0
 
-# Required for HF Space
-gradio
+# Agent dependencies (these are provided by the evaluation infrastructure)
+# Do not add jericho, fastmcp, or huggingface_hub here - they are already installed
+
+# Add any additional packages your agent needs below:
+# numpy
+# requests
