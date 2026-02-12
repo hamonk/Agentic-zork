@@ -77,6 +77,7 @@ class GameLogger:
         self.log_dir = Path(log_dir)
         self.log_dir.mkdir(parents=True, exist_ok=True)
         self.current_log: Optional[GameRunLog] = None
+        self.current_filepath: Optional[Path] = None
     
     def start_run(self, game: str, agent: str, seed: int, max_steps: int) -> GameRunLog:
         """Start a new game run log."""
@@ -87,6 +88,15 @@ class GameLogger:
             seed=seed,
             max_steps=max_steps
         )
+        
+        # Generate filename immediately
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"{game}_{agent}_{timestamp}.json"
+        self.current_filepath = self.log_dir / filename
+        
+        # Save initial empty log
+        self.current_log.save(self.current_filepath)
+        
         return self.current_log
     
     def log_step(
@@ -120,6 +130,10 @@ class GameLogger:
         )
         
         self.current_log.add_step(step_log)
+        
+        # Save incrementally after each step
+        if self.current_filepath:
+            self.current_log.save(self.current_filepath)
     
     def end_run(
         self,
@@ -142,12 +156,10 @@ class GameLogger:
         self.current_log.map_state = map_state or {}
         self.current_log.error = error
         
-        # Generate filename
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"{self.current_log.game}_{self.current_log.agent}_{timestamp}.json"
-        filepath = self.log_dir / filename
+        # Use existing filepath (already set in start_run)
+        filepath = self.current_filepath or self.log_dir / f"{self.current_log.game}_final.json"
         
-        # Save
+        # Save final state
         self.current_log.save(filepath)
         
         return str(filepath)

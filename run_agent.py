@@ -53,6 +53,80 @@ def find_agent_folders() -> list[str]:
     return sorted(agent_folders)
 
 
+async def run_walkthrough_cheat(args):
+    """Run the game's official walkthrough (cheat mode)."""
+    from games.zork_env import TextAdventureEnv
+    
+    print(f"\n[CHEAT MODE] Executing official walkthrough for {args.game}")
+    print("=" * 60)
+    
+    wrapper = TextAdventureEnv(game=args.game)
+    env = wrapper.env
+    
+    try:
+        walkthrough = env.get_walkthrough()
+    except Exception as e:
+        print(f"Error: Could not get walkthrough for {args.game}: {e}")
+        env.close()
+        return None
+    
+    print(f"Walkthrough has {len(walkthrough)} steps\n")
+    
+    # Reset environment
+    state = wrapper.reset()
+    locations_visited = set()
+    
+    print(f"Starting location: {state.observation.split(chr(10))[0]}\n")
+    
+    # Execute each step
+    for i, action in enumerate(walkthrough[:args.max_steps], 1):
+        if args.verbose:
+            print(f"\n--- Step {i}/{len(walkthrough)} ---")
+            print(f"Action: {action}")
+        else:
+            print(f"{i:3d}. {action}", end="")
+        
+        state = wrapper.step(action)
+        
+        # Track location
+        location = state.observation.split('\n')[0] if state.observation else "Unknown"
+        locations_visited.add(location)
+        
+        if args.verbose:
+            print(f"\nResult:\n{state.observation}\n")
+            print(f"Score: {state.score} | Moves: {state.moves} | Reward: {state.reward}")
+        else:
+            score_str = f" → Score: {state.score}" if state.reward > 0 else ""
+            print(score_str)
+        
+        if state.done:
+            print(f"\n\n[GAME OVER at step {i}]")
+            break
+    
+    env.close()
+    
+    # Return results in same format as agent
+    from dataclasses import dataclass
+    @dataclass
+    class WalkthroughResult:
+        final_score: int
+        max_score: int
+        moves: int
+        locations_visited: set
+        game_completed: bool
+        error: str = None
+        history: list = None
+    
+    return WalkthroughResult(
+        final_score=state.score,
+        max_score=350,  # Zork default
+        moves=state.moves,
+        locations_visited=locations_visited,
+        game_completed=state.done,
+        history=[]
+    )
+
+
 async def run_mcp_agent(args):
     """Run MCP ReAct Agent from the specified folder."""
     agent_folder = Path(__file__).parent / args.agent
@@ -76,9 +150,23 @@ async def run_mcp_agent(args):
     print(f"\n[MCP] Running Student Agent with FastMCP")
     print(f"   Agent: {args.agent}/")
     print(f"   Game: {args.game}")
+    if args.cheat:
+        print(f"   Mode: CHEAT (Walkthrough hints enabled)")
     print()
 
     agent = StudentAgent()
+    
+    # Get walkthrough if regular cheat mode (not super-cheat)
+    walkthrough = None
+    if args.cheat and not args.super_cheat:
+        from games.zork_env import TextAdventureEnv
+        wrapper = TextAdventureEnv(game=args.game)
+        try:
+            walkthrough = wrapper.env.get_walkthrough()
+            print(f"[CHEAT] Loaded {len(walkthrough)} walkthrough steps as hints\n")
+        except Exception as e:
+            print(f"[WARNING] Could not load walkthrough: {e}\n")
+        wrapper.env.close()
     
     # Create transport for the MCP server
     env_vars = os.environ.copy()
@@ -97,6 +185,7 @@ async def run_mcp_agent(args):
             max_steps=args.max_steps,
             seed=42,  # Using a fixed seed for direct running
             verbose=args.verbose,
+            walkthrough=walkthrough,
         )
 
 
@@ -156,6 +245,16 @@ Examples:
         action="store_true",
         help="Show detailed reasoning from the agent"
     )
+    parser.add_argument(
+        "--cheat",
+        action="store_true",
+        help="Provide optimal walkthrough as hints to the agent"
+    )
+    parser.add_argument(
+        "--super-cheat",
+        action="store_true",
+        help="Execute the walkthrough directly (no agent, perfect play)"
+    )
 
     args = parser.parse_args()
 
@@ -195,14 +294,22 @@ Examples:
     print("\n" + "=" * 60)
     print("Text Adventure MCP Agent Runner")
     print("=" * 60)
-    print(f"Agent: {args.agent}/")
+    if args.super_cheat:
+        print("Mode: SUPER CHEAT (Execute Walkthrough)")
+    else:
+        print(f"Agent: {args.agent}/")
+        if args.cheat:
+            print("Cheat Mode: Enabled (walkthrough hints)")
     print(f"Game: {args.game}")
     print(f"Max Steps: {args.max_steps}")
     print(f"Verbose: {args.verbose}")
 
-    # Run the agent
+    # Run the agent (or super-cheat mode)
     try:
-        results = asyncio.run(run_mcp_agent(args))
+        if args.super_cheat:
+            results = asyncio.run(run_walkthrough_cheat(args))
+        else:
+            results = asyncio.run(run_mcp_agent(args))
 
     except FileNotFoundError as e:
         print(f"\n[Error] {e}")

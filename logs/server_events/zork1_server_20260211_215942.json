@@ -1,0 +1,1226 @@
+{
+  "game": "zork1",
+  "session_id": "20260211_215942",
+  "total_moves": 34,
+  "final_score": 25,
+  "events": [
+    {
+      "timestamp": "2026-02-11T21:59:42.639692",
+      "event_type": "session_start",
+      "data": {
+        "game": "zork1"
+      },
+      "location": "Copyright (c) 1981, 1982, 1983 Infocom, Inc. All rights reserved.",
+      "score": 0,
+      "moves": 0
+    },
+    {
+      "timestamp": "2026-02-11T21:59:42.639701",
+      "event_type": "inventory_check",
+      "data": {
+        "item_count": 0,
+        "items": []
+      },
+      "location": "Copyright (c) 1981, 1982, 1983 Infocom, Inc. All rights reserved.",
+      "score": 0,
+      "moves": 0
+    },
+    {
+      "timestamp": "2026-02-11T21:59:44.707674",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 4,
+        "actions": [
+          "open mailbox",
+          "north",
+          "south",
+          "west"
+        ]
+      },
+      "location": "Copyright (c) 1981, 1982, 1983 Infocom, Inc. All rights reserved.",
+      "score": 0,
+      "moves": 0
+    },
+    {
+      "timestamp": "2026-02-11T21:59:44.713010",
+      "event_type": "action",
+      "data": {
+        "action": "look",
+        "old_location": "Copyright (c) 1981, 1982, 1983 Infocom, Inc. All rights reserved.",
+        "new_location": "West of House",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "West of House\nYou are standing in an open field west of a white house, with a boarded front door.\nTh"
+      },
+      "location": "West of House",
+      "score": 0,
+      "moves": 1
+    },
+    {
+      "timestamp": "2026-02-11T21:59:47.252191",
+      "event_type": "action",
+      "data": {
+        "action": "open mailbox",
+        "old_location": "West of House",
+        "new_location": "Opening the small mailbox reveals a leaflet.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "Opening the small mailbox reveals a leaflet.\n\n"
+      },
+      "location": "Opening the small mailbox reveals a leaflet.",
+      "score": 0,
+      "moves": 2
+    },
+    {
+      "timestamp": "2026-02-11T21:59:47.300966",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 5,
+        "actions": [
+          "take leaflet",
+          "close mailbox",
+          "north",
+          "south",
+          "west"
+        ]
+      },
+      "location": "Opening the small mailbox reveals a leaflet.",
+      "score": 0,
+      "moves": 2
+    },
+    {
+      "timestamp": "2026-02-11T21:59:49.295651",
+      "event_type": "action",
+      "data": {
+        "action": "take leaflet",
+        "old_location": "Opening the small mailbox reveals a leaflet.",
+        "new_location": "Taken.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "Taken.\n\n"
+      },
+      "location": "Taken.",
+      "score": 0,
+      "moves": 3
+    },
+    {
+      "timestamp": "2026-02-11T21:59:49.339639",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 6,
+        "actions": [
+          "close mailbox",
+          "put down leaflet",
+          "north",
+          "put leaflet in mailbox",
+          "south",
+          "west"
+        ]
+      },
+      "location": "Taken.",
+      "score": 0,
+      "moves": 3
+    },
+    {
+      "timestamp": "2026-02-11T21:59:51.547400",
+      "event_type": "action",
+      "data": {
+        "action": "u",
+        "old_location": "Taken.",
+        "new_location": "You can't go that way.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "You can't go that way.\n\n"
+      },
+      "location": "You can't go that way.",
+      "score": 0,
+      "moves": 4
+    },
+    {
+      "timestamp": "2026-02-11T21:59:51.591281",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 6,
+        "actions": [
+          "close mailbox",
+          "put down leaflet",
+          "north",
+          "put leaflet in mailbox",
+          "south",
+          "west"
+        ]
+      },
+      "location": "You can't go that way.",
+      "score": 0,
+      "moves": 4
+    },
+    {
+      "timestamp": "2026-02-11T21:59:54.044631",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 6,
+        "actions": [
+          "close mailbox",
+          "put down leaflet",
+          "north",
+          "put leaflet in mailbox",
+          "south",
+          "west"
+        ]
+      },
+      "location": "You can't go that way.",
+      "score": 0,
+      "moves": 4
+    },
+    {
+      "timestamp": "2026-02-11T21:59:54.049388",
+      "event_type": "map_check",
+      "data": {
+        "locations_count": 1
+      },
+      "location": "You can't go that way.",
+      "score": 0,
+      "moves": 4
+    },
+    {
+      "timestamp": "2026-02-11T21:59:54.074045",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 6,
+        "actions": [
+          "close mailbox",
+          "put down leaflet",
+          "north",
+          "put leaflet in mailbox",
+          "south",
+          "west"
+        ]
+      },
+      "location": "You can't go that way.",
+      "score": 0,
+      "moves": 4
+    },
+    {
+      "timestamp": "2026-02-11T21:59:55.946158",
+      "event_type": "action",
+      "data": {
+        "action": "south",
+        "old_location": "You can't go that way.",
+        "new_location": "South of House",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "South of House\nYou are facing the south side of a white house. There is no door here, and all the wi"
+      },
+      "location": "South of House",
+      "score": 0,
+      "moves": 5
+    },
+    {
+      "timestamp": "2026-02-11T21:59:55.980662",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 4,
+        "actions": [
+          "put down leaflet",
+          "west",
+          "south",
+          "east"
+        ]
+      },
+      "location": "South of House",
+      "score": 0,
+      "moves": 5
+    },
+    {
+      "timestamp": "2026-02-11T21:59:58.201067",
+      "event_type": "action",
+      "data": {
+        "action": "east",
+        "old_location": "South of House",
+        "new_location": "Behind House",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "Behind House\nYou are behind the white house. A path leads into the forest to the east. In one corner"
+      },
+      "location": "Behind House",
+      "score": 0,
+      "moves": 6
+    },
+    {
+      "timestamp": "2026-02-11T21:59:58.247964",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 5,
+        "actions": [
+          "open window",
+          "put down leaflet",
+          "south",
+          "north",
+          "east"
+        ]
+      },
+      "location": "Behind House",
+      "score": 0,
+      "moves": 6
+    },
+    {
+      "timestamp": "2026-02-11T22:00:00.356858",
+      "event_type": "action",
+      "data": {
+        "action": "open window",
+        "old_location": "Behind House",
+        "new_location": "With great effort, you open the window far enough to allow entry.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "With great effort, you open the window far enough to allow entry.\n\n"
+      },
+      "location": "With great effort, you open the window far enough to allow entry.",
+      "score": 0,
+      "moves": 7
+    },
+    {
+      "timestamp": "2026-02-11T22:00:00.403945",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 6,
+        "actions": [
+          "west",
+          "close window",
+          "put down leaflet",
+          "south",
+          "north",
+          "east"
+        ]
+      },
+      "location": "With great effort, you open the window far enough to allow entry.",
+      "score": 0,
+      "moves": 7
+    },
+    {
+      "timestamp": "2026-02-11T22:00:03.424848",
+      "event_type": "action",
+      "data": {
+        "action": "west",
+        "old_location": "With great effort, you open the window far enough to allow entry.",
+        "new_location": "Kitchen",
+        "location_changed": true,
+        "reward": 10,
+        "score_change": 10,
+        "result_preview": "Kitchen\nYou are in the kitchen of the white house. A table seems to have been used recently for the "
+      },
+      "location": "Kitchen",
+      "score": 10,
+      "moves": 8
+    },
+    {
+      "timestamp": "2026-02-11T22:00:03.507919",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 12,
+        "actions": [
+          "jump",
+          "east",
+          "open bottle",
+          "open sack",
+          "take bottle",
+          "take sack",
+          "take all",
+          "up",
+          "close window",
+          "put down leaflet",
+          "put leaflet on table",
+          "west"
+        ]
+      },
+      "location": "Kitchen",
+      "score": 10,
+      "moves": 8
+    },
+    {
+      "timestamp": "2026-02-11T22:00:07.116049",
+      "event_type": "action",
+      "data": {
+        "action": "open sack",
+        "old_location": "Kitchen",
+        "new_location": "Opening the brown sack reveals a lunch, and a clove of garlic.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "Opening the brown sack reveals a lunch, and a clove of garlic.\n\n"
+      },
+      "location": "Opening the brown sack reveals a lunch, and a clove of garlic.",
+      "score": 10,
+      "moves": 9
+    },
+    {
+      "timestamp": "2026-02-11T22:00:07.124223",
+      "event_type": "map_check",
+      "data": {
+        "locations_count": 4
+      },
+      "location": "Opening the brown sack reveals a lunch, and a clove of garlic.",
+      "score": 10,
+      "moves": 9
+    },
+    {
+      "timestamp": "2026-02-11T22:00:07.206317",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 16,
+        "actions": [
+          "jump",
+          "east",
+          "open bottle",
+          "take bottle",
+          "take sack",
+          "take food",
+          "take garlic",
+          "take all",
+          "up",
+          "close window",
+          "close sack",
+          "put down leaflet",
+          "put leaflet on table",
+          "put leaflet in sack",
+          "take all from sack",
+          "west"
+        ]
+      },
+      "location": "Opening the brown sack reveals a lunch, and a clove of garlic.",
+      "score": 10,
+      "moves": 9
+    },
+    {
+      "timestamp": "2026-02-11T22:00:10.797490",
+      "event_type": "action",
+      "data": {
+        "action": "take garlic",
+        "old_location": "Opening the brown sack reveals a lunch, and a clove of garlic.",
+        "new_location": "Taken.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "Taken.\n\n"
+      },
+      "location": "Taken.",
+      "score": 10,
+      "moves": 10
+    },
+    {
+      "timestamp": "2026-02-11T22:00:13.050984",
+      "event_type": "action",
+      "data": {
+        "action": "west",
+        "old_location": "Taken.",
+        "new_location": "Living Room",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "Living Room\nYou are in the living room. There is a doorway to the east, a wooden door with strange g"
+      },
+      "location": "Living Room",
+      "score": 10,
+      "moves": 11
+    },
+    {
+      "timestamp": "2026-02-11T22:00:13.103859",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 11,
+        "actions": [
+          "turn on lantern",
+          "open case",
+          "take lantern",
+          "take sword",
+          "take all",
+          "put down garlic",
+          "put down leaflet",
+          "put down all",
+          "push rug",
+          "throw garlic at lantern",
+          "east"
+        ]
+      },
+      "location": "Living Room",
+      "score": 10,
+      "moves": 11
+    },
+    {
+      "timestamp": "2026-02-11T22:00:16.640966",
+      "event_type": "action",
+      "data": {
+        "action": "take lantern",
+        "old_location": "Living Room",
+        "new_location": "Taken.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "Taken.\n\n"
+      },
+      "location": "Taken.",
+      "score": 10,
+      "moves": 12
+    },
+    {
+      "timestamp": "2026-02-11T22:00:21.244251",
+      "event_type": "action",
+      "data": {
+        "action": "take lantern",
+        "old_location": "Taken.",
+        "new_location": "You already have that!",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "You already have that!\n\n"
+      },
+      "location": "You already have that!",
+      "score": 10,
+      "moves": 13
+    },
+    {
+      "timestamp": "2026-02-11T22:00:21.313970",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 10,
+        "actions": [
+          "turn on lantern",
+          "open case",
+          "take sword",
+          "put down lantern",
+          "put down garlic",
+          "put down leaflet",
+          "put down all",
+          "push rug",
+          "throw lantern at door",
+          "east"
+        ]
+      },
+      "location": "You already have that!",
+      "score": 10,
+      "moves": 13
+    },
+    {
+      "timestamp": "2026-02-11T22:00:25.142070",
+      "event_type": "action",
+      "data": {
+        "action": "look",
+        "old_location": "You already have that!",
+        "new_location": "Living Room",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "Living Room\nYou are in the living room. There is a doorway to the east, a wooden door with strange g"
+      },
+      "location": "Living Room",
+      "score": 10,
+      "moves": 14
+    },
+    {
+      "timestamp": "2026-02-11T22:00:25.153588",
+      "event_type": "map_check",
+      "data": {
+        "locations_count": 4
+      },
+      "location": "Living Room",
+      "score": 10,
+      "moves": 14
+    },
+    {
+      "timestamp": "2026-02-11T22:00:28.685984",
+      "event_type": "action",
+      "data": {
+        "action": "take garlic",
+        "old_location": "Living Room",
+        "new_location": "You already have that!",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "You already have that!\n\n"
+      },
+      "location": "You already have that!",
+      "score": 10,
+      "moves": 15
+    },
+    {
+      "timestamp": "2026-02-11T22:00:32.987299",
+      "event_type": "action",
+      "data": {
+        "action": "west",
+        "old_location": "You already have that!",
+        "new_location": "The door is nailed shut.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "The door is nailed shut.\n\n"
+      },
+      "location": "The door is nailed shut.",
+      "score": 10,
+      "moves": 16
+    },
+    {
+      "timestamp": "2026-02-11T22:00:33.117535",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 10,
+        "actions": [
+          "turn on lantern",
+          "open case",
+          "take sword",
+          "put down lantern",
+          "put down garlic",
+          "put down leaflet",
+          "put down all",
+          "push rug",
+          "throw lantern at door",
+          "east"
+        ]
+      },
+      "location": "The door is nailed shut.",
+      "score": 10,
+      "moves": 16
+    },
+    {
+      "timestamp": "2026-02-11T22:00:37.526629",
+      "event_type": "action",
+      "data": {
+        "action": "push rug",
+        "old_location": "The door is nailed shut.",
+        "new_location": "With a great effort, the rug is moved to one side of the room, revealing the dusty cover of a closed trap door.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "With a great effort, the rug is moved to one side of the room, revealing the dusty cover of a closed"
+      },
+      "location": "With a great effort, the rug is moved to one side of the room, revealing the dusty cover of a closed trap door.",
+      "score": 10,
+      "moves": 17
+    },
+    {
+      "timestamp": "2026-02-11T22:00:37.613185",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 10,
+        "actions": [
+          "turn on lantern",
+          "open trap",
+          "open case",
+          "take sword",
+          "put down lantern",
+          "put down garlic",
+          "put down leaflet",
+          "put down all",
+          "throw lantern at west",
+          "east"
+        ]
+      },
+      "location": "With a great effort, the rug is moved to one side of the room, revealing the dusty cover of a closed trap door.",
+      "score": 10,
+      "moves": 17
+    },
+    {
+      "timestamp": "2026-02-11T22:00:41.019355",
+      "event_type": "action",
+      "data": {
+        "action": "open trap",
+        "old_location": "With a great effort, the rug is moved to one side of the room, revealing the dusty cover of a closed trap door.",
+        "new_location": "The door reluctantly opens to reveal a rickety staircase descending into darkness.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "The door reluctantly opens to reveal a rickety staircase descending into darkness.\n\n"
+      },
+      "location": "The door reluctantly opens to reveal a rickety staircase descending into darkness.",
+      "score": 10,
+      "moves": 18
+    },
+    {
+      "timestamp": "2026-02-11T22:00:41.096861",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 11,
+        "actions": [
+          "down",
+          "turn on lantern",
+          "open case",
+          "take sword",
+          "close trap",
+          "put down lantern",
+          "put down garlic",
+          "put down leaflet",
+          "put down all",
+          "throw lantern at west",
+          "east"
+        ]
+      },
+      "location": "The door reluctantly opens to reveal a rickety staircase descending into darkness.",
+      "score": 10,
+      "moves": 18
+    },
+    {
+      "timestamp": "2026-02-11T22:00:44.076063",
+      "event_type": "action",
+      "data": {
+        "action": "take garlic",
+        "old_location": "The door reluctantly opens to reveal a rickety staircase descending into darkness.",
+        "new_location": "You already have that!",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "You already have that!\n\n"
+      },
+      "location": "You already have that!",
+      "score": 10,
+      "moves": 19
+    },
+    {
+      "timestamp": "2026-02-11T22:00:44.083979",
+      "event_type": "map_check",
+      "data": {
+        "locations_count": 5
+      },
+      "location": "You already have that!",
+      "score": 10,
+      "moves": 19
+    },
+    {
+      "timestamp": "2026-02-11T22:00:48.587464",
+      "event_type": "action",
+      "data": {
+        "action": "west",
+        "old_location": "You already have that!",
+        "new_location": "The door is nailed shut.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "The door is nailed shut.\n\n"
+      },
+      "location": "The door is nailed shut.",
+      "score": 10,
+      "moves": 20
+    },
+    {
+      "timestamp": "2026-02-11T22:00:51.861294",
+      "event_type": "action",
+      "data": {
+        "action": "down",
+        "old_location": "The door is nailed shut.",
+        "new_location": "You have moved into a dark place.",
+        "location_changed": true,
+        "reward": 25,
+        "score_change": 25,
+        "result_preview": "You have moved into a dark place.\nThe trap door crashes shut, and you hear someone barring it.\n\nIt i"
+      },
+      "location": "You have moved into a dark place.",
+      "score": 35,
+      "moves": 21
+    },
+    {
+      "timestamp": "2026-02-11T22:00:51.927106",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 9,
+        "actions": [
+          "east",
+          "turn on lantern",
+          "put down garlic",
+          "put down lantern",
+          "put down leaflet",
+          "put down all",
+          "throw garlic at lantern",
+          "north",
+          "south"
+        ]
+      },
+      "location": "You have moved into a dark place.",
+      "score": 35,
+      "moves": 21
+    },
+    {
+      "timestamp": "2026-02-11T22:00:55.445922",
+      "event_type": "action",
+      "data": {
+        "action": "turn on lantern",
+        "old_location": "You have moved into a dark place.",
+        "new_location": "The brass lantern is now on.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "The brass lantern is now on.\n\nCellar\nYou are in a dark and damp cellar with a narrow passageway lead"
+      },
+      "location": "The brass lantern is now on.",
+      "score": 35,
+      "moves": 22
+    },
+    {
+      "timestamp": "2026-02-11T22:00:55.504741",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 8,
+        "actions": [
+          "put out lantern",
+          "put down garlic",
+          "put down lantern",
+          "put down leaflet",
+          "put down all",
+          "throw garlic at lantern",
+          "north",
+          "south"
+        ]
+      },
+      "location": "The brass lantern is now on.",
+      "score": 35,
+      "moves": 22
+    },
+    {
+      "timestamp": "2026-02-11T22:00:59.787339",
+      "event_type": "action",
+      "data": {
+        "action": "take garlic",
+        "old_location": "The brass lantern is now on.",
+        "new_location": "You already have that!",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "You already have that!\n\n"
+      },
+      "location": "You already have that!",
+      "score": 35,
+      "moves": 23
+    },
+    {
+      "timestamp": "2026-02-11T22:01:03.496581",
+      "event_type": "action",
+      "data": {
+        "action": "west",
+        "old_location": "You already have that!",
+        "new_location": "You try to ascend the ramp, but it is impossible, and you slide back down.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "You try to ascend the ramp, but it is impossible, and you slide back down.\n\n"
+      },
+      "location": "You try to ascend the ramp, but it is impossible, and you slide back down.",
+      "score": 35,
+      "moves": 24
+    },
+    {
+      "timestamp": "2026-02-11T22:01:03.509037",
+      "event_type": "map_check",
+      "data": {
+        "locations_count": 6
+      },
+      "location": "You try to ascend the ramp, but it is impossible, and you slide back down.",
+      "score": 35,
+      "moves": 24
+    },
+    {
+      "timestamp": "2026-02-11T22:01:03.565340",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 8,
+        "actions": [
+          "put out lantern",
+          "put down garlic",
+          "put down lantern",
+          "put down leaflet",
+          "put down all",
+          "throw garlic at lantern",
+          "north",
+          "south"
+        ]
+      },
+      "location": "You try to ascend the ramp, but it is impossible, and you slide back down.",
+      "score": 35,
+      "moves": 24
+    },
+    {
+      "timestamp": "2026-02-11T22:01:06.915410",
+      "event_type": "action",
+      "data": {
+        "action": "get lamp",
+        "old_location": "You try to ascend the ramp, but it is impossible, and you slide back down.",
+        "new_location": "You already have that!",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "You already have that!\n\n"
+      },
+      "location": "You already have that!",
+      "score": 35,
+      "moves": 25
+    },
+    {
+      "timestamp": "2026-02-11T22:01:09.272697",
+      "event_type": "action",
+      "data": {
+        "action": "north",
+        "old_location": "You already have that!",
+        "new_location": "The Troll Room",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "The Troll Room\nThis is a small room with passages to the east and south and a forbidding hole leadin"
+      },
+      "location": "The Troll Room",
+      "score": 35,
+      "moves": 26
+    },
+    {
+      "timestamp": "2026-02-11T22:01:09.362853",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 8,
+        "actions": [
+          "north",
+          "put out lantern",
+          "put down lantern",
+          "put down garlic",
+          "put down leaflet",
+          "put down all",
+          "throw lantern at axe",
+          "south"
+        ]
+      },
+      "location": "The Troll Room",
+      "score": 35,
+      "moves": 26
+    },
+    {
+      "timestamp": "2026-02-11T22:01:13.879474",
+      "event_type": "action",
+      "data": {
+        "action": "throw garlic at troll",
+        "old_location": "The Troll Room",
+        "new_location": "The troll, who is remarkably coordinated, catches the clove of garlic and not having the most discriminating tastes, gleefully eats it.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "The troll, who is remarkably coordinated, catches the clove of garlic and not having the most discri"
+      },
+      "location": "The troll, who is remarkably coordinated, catches the clove of garlic and not having the most discriminating tastes, gleefully eats it.",
+      "score": 35,
+      "moves": 27
+    },
+    {
+      "timestamp": "2026-02-11T22:01:13.950241",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 7,
+        "actions": [
+          "wait",
+          "put out lantern",
+          "put down lantern",
+          "put down leaflet",
+          "put down all",
+          "throw lantern at axe",
+          "south"
+        ]
+      },
+      "location": "The troll, who is remarkably coordinated, catches the clove of garlic and not having the most discriminating tastes, gleefully eats it.",
+      "score": 35,
+      "moves": 27
+    },
+    {
+      "timestamp": "2026-02-11T22:01:18.690450",
+      "event_type": "action",
+      "data": {
+        "action": "west",
+        "old_location": "The troll, who is remarkably coordinated, catches the clove of garlic and not having the most discriminating tastes, gleefully eats it.",
+        "new_location": "The troll fends you off with a menacing gesture.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "The troll fends you off with a menacing gesture.\n\n"
+      },
+      "location": "The troll fends you off with a menacing gesture.",
+      "score": 35,
+      "moves": 28
+    },
+    {
+      "timestamp": "2026-02-11T22:01:18.759816",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 7,
+        "actions": [
+          "take walls",
+          "put out lantern",
+          "put down lantern",
+          "put down leaflet",
+          "put down all",
+          "throw lantern at axe",
+          "south"
+        ]
+      },
+      "location": "The troll fends you off with a menacing gesture.",
+      "score": 35,
+      "moves": 28
+    },
+    {
+      "timestamp": "2026-02-11T22:01:22.751926",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 7,
+        "actions": [
+          "take walls",
+          "put out lantern",
+          "put down lantern",
+          "put down leaflet",
+          "put down all",
+          "throw lantern at axe",
+          "south"
+        ]
+      },
+      "location": "The troll fends you off with a menacing gesture.",
+      "score": 35,
+      "moves": 28
+    },
+    {
+      "timestamp": "2026-02-11T22:01:22.755640",
+      "event_type": "map_check",
+      "data": {
+        "locations_count": 7
+      },
+      "location": "The troll fends you off with a menacing gesture.",
+      "score": 35,
+      "moves": 28
+    },
+    {
+      "timestamp": "2026-02-11T22:01:22.788002",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 7,
+        "actions": [
+          "take walls",
+          "put out lantern",
+          "put down lantern",
+          "put down leaflet",
+          "put down all",
+          "throw lantern at axe",
+          "south"
+        ]
+      },
+      "location": "The troll fends you off with a menacing gesture.",
+      "score": 35,
+      "moves": 28
+    },
+    {
+      "timestamp": "2026-02-11T22:01:27.288882",
+      "event_type": "inventory_check",
+      "data": {
+        "item_count": 2,
+        "items": [
+          "brass lantern",
+          "leaflet"
+        ]
+      },
+      "location": "The troll fends you off with a menacing gesture.",
+      "score": 35,
+      "moves": 28
+    },
+    {
+      "timestamp": "2026-02-11T22:01:27.358842",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 7,
+        "actions": [
+          "take walls",
+          "put out lantern",
+          "put down lantern",
+          "put down leaflet",
+          "put down all",
+          "throw lantern at axe",
+          "south"
+        ]
+      },
+      "location": "The troll fends you off with a menacing gesture.",
+      "score": 35,
+      "moves": 28
+    },
+    {
+      "timestamp": "2026-02-11T22:01:30.803153",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 7,
+        "actions": [
+          "take walls",
+          "put out lantern",
+          "put down lantern",
+          "put down leaflet",
+          "put down all",
+          "throw lantern at axe",
+          "south"
+        ]
+      },
+      "location": "The troll fends you off with a menacing gesture.",
+      "score": 35,
+      "moves": 28
+    },
+    {
+      "timestamp": "2026-02-11T22:01:34.678796",
+      "event_type": "action",
+      "data": {
+        "action": "south",
+        "old_location": "The troll fends you off with a menacing gesture.",
+        "new_location": "Cellar",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "Cellar\n\n"
+      },
+      "location": "Cellar",
+      "score": 35,
+      "moves": 29
+    },
+    {
+      "timestamp": "2026-02-11T22:01:34.742007",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 7,
+        "actions": [
+          "put out lantern",
+          "put down lantern",
+          "put down leaflet",
+          "put down all",
+          "throw lantern at leaflet",
+          "north",
+          "south"
+        ]
+      },
+      "location": "Cellar",
+      "score": 35,
+      "moves": 29
+    },
+    {
+      "timestamp": "2026-02-11T22:01:38.371074",
+      "event_type": "action",
+      "data": {
+        "action": "turn on lantern",
+        "old_location": "Cellar",
+        "new_location": "It is already on.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "It is already on.\n\n"
+      },
+      "location": "It is already on.",
+      "score": 35,
+      "moves": 30
+    },
+    {
+      "timestamp": "2026-02-11T22:01:38.429345",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 7,
+        "actions": [
+          "put out lantern",
+          "put down lantern",
+          "put down leaflet",
+          "put down all",
+          "throw lantern at leaflet",
+          "north",
+          "south"
+        ]
+      },
+      "location": "It is already on.",
+      "score": 35,
+      "moves": 30
+    },
+    {
+      "timestamp": "2026-02-11T22:01:43.061868",
+      "event_type": "action",
+      "data": {
+        "action": "north",
+        "old_location": "It is already on.",
+        "new_location": "The Troll Room",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "The Troll Room\nA nasty-looking troll, brandishing a bloody axe, blocks all passages out of the room."
+      },
+      "location": "The Troll Room",
+      "score": 35,
+      "moves": 31
+    },
+    {
+      "timestamp": "2026-02-11T22:01:43.077816",
+      "event_type": "map_check",
+      "data": {
+        "locations_count": 9
+      },
+      "location": "The Troll Room",
+      "score": 35,
+      "moves": 31
+    },
+    {
+      "timestamp": "2026-02-11T22:01:46.030416",
+      "event_type": "action",
+      "data": {
+        "action": "throw lantern at troll",
+        "old_location": "The Troll Room",
+        "new_location": "The troll, who is remarkably coordinated, catches the brass lantern and not having the most discriminating tastes, gleefully eats it.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "The troll, who is remarkably coordinated, catches the brass lantern and not having the most discrimi"
+      },
+      "location": "The troll, who is remarkably coordinated, catches the brass lantern and not having the most discriminating tastes, gleefully eats it.",
+      "score": 35,
+      "moves": 32
+    },
+    {
+      "timestamp": "2026-02-11T22:01:46.091284",
+      "event_type": "valid_actions_check",
+      "data": {
+        "action_count": 4,
+        "actions": [
+          "east",
+          "north",
+          "put down leaflet",
+          "south"
+        ]
+      },
+      "location": "The troll, who is remarkably coordinated, catches the brass lantern and not having the most discriminating tastes, gleefully eats it.",
+      "score": 35,
+      "moves": 32
+    },
+    {
+      "timestamp": "2026-02-11T22:01:48.690717",
+      "event_type": "action",
+      "data": {
+        "action": "west",
+        "old_location": "The troll, who is remarkably coordinated, catches the brass lantern and not having the most discriminating tastes, gleefully eats it.",
+        "new_location": "The troll fends you off with a menacing gesture.",
+        "location_changed": true,
+        "reward": 0,
+        "score_change": 0,
+        "result_preview": "The troll fends you off with a menacing gesture.\nThe axe crashes against the rock, throwing sparks!\n"
+      },
+      "location": "The troll fends you off with a menacing gesture.",
+      "score": 35,
+      "moves": 33
+    },
+    {
+      "timestamp": "2026-02-11T22:01:51.588917",
+      "event_type": "action",
+      "data": {
+        "action": "south",
+        "old_location": "The troll fends you off with a menacing gesture.",
+        "new_location": "Oh, no! A lurking grue slithered into the room and devoured you!",
+        "location_changed": true,
+        "reward": -10,
+        "score_change": -10,
+        "result_preview": "Oh, no! A lurking grue slithered into the room and devoured you!\n \n   ****  You have died  **** \n\nNo"
+      },
+      "location": "Oh, no! A lurking grue slithered into the room and devoured you!",
+      "score": 25,
+      "moves": 34
+    }
+  ]
+}

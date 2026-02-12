@@ -188,36 +188,20 @@ def format_step_details(log: GameRunLog, step_num: int) -> str:
     # Get the action taken
     action_taken = step.tool_args.get('action', step.tool) if step.tool == 'play_action' else step.tool
     
-    details = f"""# Step {step.step} / {len(log.steps)}
+    details = f"""## Step {step.step} / {len(log.steps)}
 
----
+**🤔 Agent Thought:** {step.thought}
 
-## 🤔 Agent Thought
-> {step.thought}
+**🎯 Action:** `{action_taken}`
 
----
+**📊 State:** {step.location} | Score: {step.score} | Moves: {step.moves} | Inv: {', '.join(step.inventory) if step.inventory else 'Empty'}
 
-## 🎯 Action Taken
-**`{action_taken}`**
+**✅ Valid Actions:** {', '.join(step.valid_actions[:10]) if step.valid_actions else 'None'}{'...' if step.valid_actions and len(step.valid_actions) > 10 else ''}
 
----
-
-## ✅ Available Actions
-{', '.join(step.valid_actions) if step.valid_actions else 'None recorded'}
-
----
-
-## 👀 Game Response (Observation)
+**👀 Game Response:**
 ```
 {step.result}
 ```
-
----
-
-## 📊 State
-- **Location:** {step.location}
-- **Score:** {step.score} | **Moves:** {step.moves}
-- **Inventory:** {', '.join(step.inventory) if step.inventory else 'Empty'}
 """
     return details
 
@@ -305,7 +289,9 @@ with gr.Blocks(title="Game Run Visualizer") as demo:
                 interactive=True
             )
             
-            load_btn = gr.Button("▶️ Load Log", variant="primary", size="lg")
+            with gr.Row():
+                refresh_btn = gr.Button("🔄 Refresh Files", size="sm")
+                load_btn = gr.Button("▶️ Load Log", variant="primary", size="sm")
             
             gr.Markdown("---")
             
@@ -341,6 +327,12 @@ with gr.Blocks(title="Game Run Visualizer") as demo:
         return min(max_steps, current_step + 1)
     
     # Event handlers
+    refresh_btn.click(
+        fn=lambda: gr.Dropdown(choices=list_recent_logs()),
+        inputs=[],
+        outputs=[log_dropdown]
+    )
+    
     load_btn.click(
         fn=load_and_visualize,
         inputs=[log_dropdown],

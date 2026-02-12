@@ -148,6 +148,8 @@ class StudentAgent:
         self.steps_since_progress: int = 0  # Track steps without score/location change
         self.valid_actions: list[str] = []  # Valid actions at current location
         self.steps_since_valid_check: int = 0  # Track when we last checked valid actions
+        self.current_map: Optional[str] = None  # Store map data for LLM context
+        self.walkthrough_hints: Optional[list[str]] = None  # Optional walkthrough guidance
         
         # Auto-create logger if not provided and logging is enabled
         if logger is None and enable_logging:
@@ -164,11 +166,15 @@ class StudentAgent:
         max_steps: int,
         seed: int,
         verbose: bool = False,
+        walkthrough: Optional[list[str]] = None,
     ) -> RunResult:
         """Run the agent for a game session."""
         locations_visited = set()
         history = []
         moves = 0
+        
+        # Store walkthrough hints if provided
+        self.walkthrough_hints = walkthrough
         
         # Initialize logging if logger provided
         if self.logger:
@@ -189,6 +195,11 @@ class StudentAgent:
         self.current_inventory = self._parse_inventory(inv_text)
         if verbose:
             print(f"\n{inv_text}\n")
+        
+        # Show walkthrough info if provided (cheat mode)
+        if self.walkthrough_hints:
+            if verbose:
+                print(f"\n[WALKTHROUGH MODE] You have access to {len(self.walkthrough_hints)} optimal steps\n")
         
         # Get valid actions at start
         try:
@@ -225,6 +236,7 @@ class StudentAgent:
             if self.steps_since_map_check >= 5 or self.steps_since_progress > 3:
                 map_result = await client.call_tool("get_map", {})
                 map_text = self._extract_result(map_result)
+                self.current_map = map_text  # Store for LLM prompt
                 if verbose:
                     print(f"\n[MAP CHECK]\n{map_text}\n")
                 self.steps_since_map_check = 0
@@ -428,6 +440,14 @@ class StudentAgent:
         parts.append(f"Current Score: {self.score}")
         parts.append(f"Locations explored: {len(self.locations_explored)}")
         
+        # Show walkthrough hint if available (next optimal step)
+        if self.walkthrough_hints and len(self.history) < len(self.walkthrough_hints):
+            current_step = len(self.history)
+            next_hint = self.walkthrough_hints[current_step]
+            # Show next 2-3 steps as hints
+            upcoming = self.walkthrough_hints[current_step:current_step+3]
+            parts.append(f"\n[HINT - Optimal next steps: {', '.join(upcoming)}]")
+        
         # Recent history
         if self.history:
             parts.append("\nRecent actions:")
@@ -453,6 +473,13 @@ class StudentAgent:
         # Show valid actions if available
         if self.valid_actions:
             parts.append(f"\n[VALID ACTIONS: {', '.join(self.valid_actions[:15])}]")
+        
+        # Show map summary when stuck to help with navigation
+        if self.steps_since_progress > 3 and self.current_map:
+            # Extract just location count and a few recent locations
+            map_lines = self.current_map.split('\n')
+            location_count = sum(1 for line in map_lines if line.strip().startswith('*'))
+            parts.append(f"\n[MAP: {location_count} locations explored. Consider calling get_map tool for full details.]")
         
         # Show unexplored directions if stuck
         if self.steps_since_progress > 2 and self.unexplored_directions:
