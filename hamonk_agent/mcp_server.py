@@ -3,10 +3,14 @@ Example: MCP Server for Text Adventures
 
 A complete MCP server that exposes text adventure games via tools.
 This demonstrates a full-featured server with memory, mapping, and inventory.
+Includes structured logging of all game events.
 """
 
 import sys
 import os
+import json
+from pathlib import Path
+from datetime import datetime
 
 # Add parent directory to path to import games module
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -25,21 +29,67 @@ mcp = FastMCP("Text Adventure Server")
 class GameState:
     """Manages the text adventure game state and exploration data."""
     
-    def __init__(self, game: str = "zork1"):
+    def __init__(self, game: str = "zork1", enable_logging: bool = True):
         self.game_name = game
         self.env = TextAdventureEnv(game)
         self.state = self.env.reset()
         self.history: list[tuple[str, str]] = []
         self.explored_locations: dict[str, set[str]] = {}
         self.current_location: str = self._extract_location(self.state.observation)
+        
+        # Server-side event logging
+        self.enable_logging = enable_logging
+        self.event_log: list[dict] = []
+        self.log_dir = Path("logs/server_events")
+        if enable_logging:
+            self.log_dir.mkdir(parents=True, exist_ok=True)
+            self.session_id = datetime.now().strftime("%Y%m%d_%H%M%S")
+            self._log_event("session_start", {"game": game})
     
     def _extract_location(self, observation: str) -> str:
         """Extract location name from observation (usually first line)."""
         lines = observation.strip().split('\n')
         return lines[0] if lines else "Unknown"
     
+    def _log_event(self, event_type: str, data: dict):
+        """Log a server event."""
+        if not self.enable_logging:
+            return
+        
+        event = {
+            "timestamp": datetime.now().isoformat(),
+            "event_type": event_type,
+            "data": data,
+            "location": self.current_location,
+            "score": self.state.score,
+            "moves": self.state.moves
+        }
+        self.event_log.append(event)
+    
+    def save_event_log(self):
+        """Save event log to file."""
+        if not self.enable_logging or not self.event_log:
+            return
+        
+        filename = f"{self.game_name}_server_{self.session_id}.json"
+        filepath = self.log_dir / filename
+        
+        with open(filepath, 'w') as f:
+            json.dump({
+                "game": self.game_name,
+                "session_id": self.session_id,
+                "total_moves": self.state.moves,
+                "final_score": self.state.score,
+                "events": self.event_log
+            }, f, indent=2)
+        
+        return str(filepath)
+    
     def take_action(self, action: str) -> str:
         """Execute a game action and return the result."""
+        old_location = self.current_location
+        old_score = self.state.score
+        
         self.state = self.env.step(action)
         result = self.state.observation
         
@@ -58,12 +108,27 @@ class GameState:
                 self.explored_locations[self.current_location].add(f"{action} -> {new_location}")
         self.current_location = new_location
         
+        # Log event
+        self._log_event("action", {
+            "action": action,
+            "old_location": old_location,
+            "new_location": new_location,
+            "location_changed": old_location != new_location,
+            "reward": self.state.reward,
+            "score_change": self.state.score - old_score,
+            "result_preview": result[:100]
+        })
+        
         return result
     
     def get_memory(self) -> str:
         """Get a summary of current game state."""
         recent = self.history[-5:] if self.history else []
         recent_str = "\n".join([f"  > {a} -> {r[:60]}..." for a, r in recent]) if recent else "  (none yet)"
+        
+        self._log_event("memory_check", {
+            "locations_explored": len(self.explored_locations)
+        })
         
         return f"""Current State:
 - Location: {self.current_location}
@@ -79,6 +144,10 @@ Current Observation:
     
     def get_map(self) -> str:
         """Get a map of explored locations."""
+        self._log_event("map_check", {
+            "locations_count": len(self.explored_locations)
+        })
+        
         if not self.explored_locations:
             return "Map: No locations explored yet. Try moving around!"
         
@@ -95,24 +164,30 @@ Current Observation:
         """Get current inventory."""
         items = self.state.inventory if hasattr(self.state, 'inventory') and self.state.inventory else []
         
+        item_names = []
+        if items:
+            for item in items:
+                item_str = str(item)
+                item_lower = item_str.lower()
+                if "parent" in item_lower:
+                    idx = item_lower.index("parent")
+                    name = item_str[:idx].strip()
+                    if ":" in name:
+                        name = name.split(":", 1)[1].strip()
+                    item_names.append(name)
+                elif ":" in item_str:
+                    name = item_str.split(":")[1].strip()
+                    item_names.append(name)
+                else:
+                    item_names.append(item_str)
+        
+        self._log_event("inventory_check", {
+            "item_count": len(item_names),
+            "items": item_names
+        })
+        
         if not items:
             return "Inventory: You are empty-handed."
-        
-        item_names = []
-        for item in items:
-            item_str = str(item)
-            item_lower = item_str.lower()
-            if "parent" in item_lower:
-                idx = item_lower.index("parent")
-                name = item_str[:idx].strip()
-                if ":" in name:
-                    name = name.split(":", 1)[1].strip()
-                item_names.append(name)
-            elif ":" in item_str:
-                name = item_str.split(":")[1].strip()
-                item_names.append(name)
-            else:
-                item_names.append(item_str)
         
         return f"Inventory: {', '.join(item_names)}"
 
@@ -156,6 +231,10 @@ def play_action(action: str) -> str:
     done_info = ""
     if game.state.done:
         done_info = "\n\nGAME OVER"
+        # Save server event log when game ends
+        log_path = game.save_event_log()
+        if log_path:
+            done_info += f"\n[Server log saved: {log_path}]"
     
     return result + score_info + done_info
 
@@ -200,6 +279,10 @@ def get_valid_actions() -> str:
     game = get_game()
     if game.env and game.env.env:
         valid = game.env.env.get_valid_actions()
+        game._log_event("valid_actions_check", {
+            "action_count": len(valid),
+            "actions": valid[:20]
+        })
         return "Valid actions: " + ", ".join(valid[:20])
     return "Could not determine valid actions"
 

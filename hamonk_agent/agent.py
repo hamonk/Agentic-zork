@@ -8,11 +8,17 @@ This is a working example students can learn from.
 import json
 import os
 import re
+import sys
 from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Optional
 
 from dotenv import load_dotenv
 from huggingface_hub import InferenceClient
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from visualization.logger import GameLogger
 
 load_dotenv()
 
@@ -130,7 +136,7 @@ class StudentAgent:
     - Score tracking via memory tool
     """
     
-    def __init__(self):
+    def __init__(self, logger: Optional[GameLogger] = None, enable_logging: bool = True):
         """Initialize the agent state."""
         self.history: list[dict] = []
         self.recent_actions: list[str] = []
@@ -142,6 +148,14 @@ class StudentAgent:
         self.steps_since_progress: int = 0  # Track steps without score/location change
         self.valid_actions: list[str] = []  # Valid actions at current location
         self.steps_since_valid_check: int = 0  # Track when we last checked valid actions
+        
+        # Auto-create logger if not provided and logging is enabled
+        if logger is None and enable_logging:
+            self.logger = GameLogger(log_dir="logs")
+        else:
+            self.logger = logger
+        
+        self.current_inventory: list[str] = []  # Track inventory for logging
     
     async def run(
         self,
@@ -156,6 +170,15 @@ class StudentAgent:
         history = []
         moves = 0
         
+        # Initialize logging if logger provided
+        if self.logger:
+            self.logger.start_run(
+                game=game,
+                agent=self.__class__.__name__,
+                seed=seed,
+                max_steps=max_steps
+            )
+        
         # Get list of available tools
         tools = await client.list_tools()
         tool_names = [t.name for t in tools]
@@ -163,6 +186,7 @@ class StudentAgent:
         # Check inventory first to see what we start with
         inv_result = await client.call_tool("inventory", {})
         inv_text = self._extract_result(inv_result)
+        self.current_inventory = self._parse_inventory(inv_text)
         if verbose:
             print(f"\n{inv_text}\n")
         
@@ -283,6 +307,10 @@ class StudentAgent:
                 result = await client.call_tool(tool_name, tool_args)
                 observation = self._extract_result(result)
                 
+                # Update inventory if it's an inventory check
+                if tool_name == "inventory":
+                    self.current_inventory = self._parse_inventory(observation)
+                
                 if verbose:
                     print(f"[RESULT] {observation[:200]}...")
             except Exception as e:
@@ -336,6 +364,21 @@ class StudentAgent:
                 "location": location,
                 "score": self.score
             })
+            
+            # Structured logging
+            if self.logger:
+                self.logger.log_step(
+                    step=step,
+                    thought=thought,
+                    tool=tool_name,
+                    tool_args=tool_args,
+                    result=observation,
+                    location=location,
+                    score=self.score,
+                    moves=moves,
+                    inventory=self.current_inventory.copy(),
+                    valid_actions=self.valid_actions.copy()
+                )
             # Truncate history to last 10 entries to save memory
             if len(self.history) > 10:
                 self.history = self.history[-10:]
@@ -351,6 +394,23 @@ class StudentAgent:
                 if verbose:
                     print("\n*** GAME OVER ***")
                 break
+        
+        # Finalize logging
+        if self.logger:
+            # Get final map state
+            map_state = {}
+            for loc, exits in getattr(self, '_map_connections', {}).items():
+                map_state[loc] = list(exits)
+            
+            log_path = self.logger.end_run(
+                final_score=self.score,
+                final_moves=moves,
+                locations_visited=list(locations_visited),
+                game_completed=self._is_game_over(observation),
+                map_state=map_state
+            )
+            if verbose:
+                print(f"\n[LOG SAVED] {log_path}")
         
         return RunResult(
             final_score=self.score,
@@ -544,6 +604,19 @@ class StudentAgent:
         ]
         text_lower = text.lower()
         return any(phrase in text_lower for phrase in game_over_phrases)
+    
+    def _parse_inventory(self, inv_text: str) -> list[str]:
+        """Parse inventory text into list of items."""
+        if "empty-handed" in inv_text.lower() or "nothing" in inv_text.lower():
+            return []
+        
+        # Extract items after "Inventory:" or similar
+        items = []
+        if ":" in inv_text:
+            items_str = inv_text.split(":", 1)[1].strip()
+            items = [item.strip() for item in items_str.split(",") if item.strip()]
+        
+        return items
 
 
 # =============================================================================
@@ -554,7 +627,9 @@ async def test_agent():
     """Test the agent locally."""
     from fastmcp import Client
     
-    agent = StudentAgent()
+    # Initialize logger
+    logger = GameLogger(log_dir="logs")
+    agent = StudentAgent(logger=logger)
     
     async with Client("mcp_server.py") as client:
         result = await agent.run(

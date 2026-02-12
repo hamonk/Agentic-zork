@@ -10,3 +10,9 @@ fastmcp
 langchain-core
 
 huggingface_hub
+
+# Visualization
+gradio
+plotly
+pandas
+networkx
